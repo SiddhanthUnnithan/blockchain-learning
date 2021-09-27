@@ -1,0 +1,93 @@
+- business process which allows trusting data and participants without central authority / database (de-centralized)
+- blockchain = record-keeping and contract-enforcing tech that uses cryptography to disallow changes to previous history (immutable record)
+- participants share workstreams and track changes on shared ledger
+- why not central db?
+    - advantage = easy to control access and consistency
+    - trusted authority controlling access
+    - all participants use the same data
+    - participants need to trust that db is correct, need to trust that owner of db won't change history
+    - gist: single db used by all participants with one trusted authority responsible for management
+        - one participant may not be willing to take responsibility
+        - trusted authority may illegitimately make changes to records
+- why not distributed db?
+    - each participant has their own copy
+    - copies are multiplied and changes are synchronized
+    - synchronization makes it complex (handle failures, conflicts)
+- distributed ledger (i.e., blockchain)
+    - history of transactions; each transaction affects final state
+    - consortium network = blockchain network distributed among participants
+    - each participant has visibility into every transaction which occurs on the network
+    - consensus rules to ensure data is consistent
+    - prevents participant or minority of participants from modifying history
+How Blockhain works
+- data distribution
+    - each participant with blockchain node has copy of ledger for personal auditing and integration with their own systems
+    - nodes can be shared between partners
+    - nodes are connected using blockhain network
+- changing state
+    - transactions change state of the data
+    - current state of ledger = transactions applied in order
+    - transactions sent to blockchain transaction node
+    - blockchain tech sends transaction throughout the network; each node gets copy of transaction
+    - each node processes transaction; requires validation without using consensus mechanism
+- trusting ledger data is consistent
+    - trust is hard because data changes must occur across all nodes
+    - what happens if node doesn't get transaction?
+    - consensus mechanism used to validate and agree on data across all nodes
+    - all decentralized nodes come to same state
+    - order matters with transactions
+    - double spend problem = using the same item to pay twice even after transfer of ownership
+        - solved by consensus
+    - consensus ensures correct order of transactions and integrity of blockchain
+     - group of transactions validated as a block and entire network must agree if block should be included in blockchain
+    - consensus algorithms: proof of work, proof of stake, proof of authority
+    - consensus ensures distributed ledger comes to common state
+- how to trust ledger is immutable
+    - crypto hash used to create link between blocks, which allows order of transactions to be agreed upon
+    - hash = maps data of arbitrary size to bit representation of fixed size; digital fingerprint analogy
+    - blockchain uses hashes to detect if changes are made to blocks
+        - blocks chained through hashes
+    - subsequent block (transactions) hashes store previous block has; ensures immutable chain of transactions stored in order
+    - if block is modified in chain, hash of later blocks is different
+- trusted logic
+    - DApp = decentralized application
+    - Eth DApp called smart contracts; contains logic executed as part of the transaction
+    - Solidity = programming language to program logic on Eth transactions
+    - smart contracts deployed to blockchain and referenced by address
+        - instance contains state and program logic
+    - smart contracts are immutable; once deployed, logic can't change
+Blockchain Types
+    - public
+        - decentralized with no single authority on network
+        - all transactions are visible by any node on network
+        - e.g., Bitcoin
+        - public blockchains may charge cryptocurrency fee for validating transactions
+    - private
+        - semi-trusted networks
+        - agreement between all participants about how blockchain will be used
+        - consortium = private but authority is distributed
+        - trust enforced by restricting only participants in validation
+        - data can be kept private between participants
+    - blockchain protocols
+        - e.g., Bitcoin
+            - primary fn: store Bitcoin value; value can be transferred from one to another
+        - e.g., Ethereum
+            - extends bitcoin allowing small programs to be written and value to be transferred
+            - add logic and code instead of simple fixed value transfers
+When to use blockchain
+    - partners
+        - multiple
+        - avoid central auth
+        - is data shared?
+        - is there a workflow with several or all participants?
+    - perf
+        - low transaction throughput; rates can be low
+        - business logic for transaction can affect perf
+    - business logic
+        - complex smart contract function on public blockchain requires more cryptocurrency
+        - does logic need to be versioned? is it static without much change
+    - trust
+        - importance of trust and integrity
+        - do transactions need to be ordered
+        - do transactions need to be private
+    -
