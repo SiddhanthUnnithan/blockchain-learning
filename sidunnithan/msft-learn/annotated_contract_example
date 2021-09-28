@@ -1,0 +1,53 @@
+/*
+    Smart contract for simple online marketplace.
+    Allows users to list items for sale and buy available item
+    Roles: seller, buyer
+*/
+
+pragma solidity >0.7.0 <0.8.0;
+
+contract Marketplace {
+    // payable addresses
+    address public seller;
+    address public buyer;
+
+    // dict to get balances for registered addresses
+    mapping(address => uint) public balances;
+
+    // actions in contract
+    // we want these actions to be captured in the transaction log
+    event ListItem(address seller, uint price);
+    event PurchasedItem(address seller, address buyer, uint price);
+
+    // capture state of the items -- boolean values
+    enum StateType {
+        ItemAvailable,
+        ItemPurchased
+    }
+
+    // initialize state struct
+    StateType public State;
+
+    // initialize values -- called when the contract is created
+    constructor() public {
+        // get seller information from incoming 
+        seller = msg.sender;
+        State = StateType.ItemAvailable;
+    }
+
+    // allow the buyer to buy from the seller
+    function buy(address seller, address buyer, uint price) public payable {
+        // check if buyer can afford item price 
+        require(price <= balances[buyer], "Insufficient balance");
+
+        // change state of item
+        State = StateType.ItemPurchased;
+
+        // account balancing after purchase
+        balances[buyer] -= price;
+        balances[seller] += price;
+
+        // emit item purchase event
+        emit PurchasedItem(seller, buyer, msg.value);
+    }
+}
